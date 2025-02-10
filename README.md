@@ -29,7 +29,7 @@ SECTIONS
 } INSERT BEFORE .uninit;
 ```
 
-In rust code it is needed to call macro [`init_sections`] with proper argument.
+In rust code it is needed to call macro `init_sections` with proper argument.
 
 ```rust
 #![no_std]
