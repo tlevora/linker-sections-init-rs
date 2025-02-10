@@ -1,0 +1,25 @@
+[workspace]
+resolver = "2"
+members = [
+    "linker-sections",
+    "examples/*",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/tlevora/linker-sections-init-rs"
+readme = "README.md"
+categories = ["embedded", "no-std", "no-std::no-alloc"]
+keywords = ["linker", "section", "memory", "init", "cortex-m"]
+authors = ["Tomas Levora <levora.tomas@gmail.com>"]
+
+[workspace.dependencies]
+cortex-m-rt = "0.7.5"
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+defmt = "0.3.10"
+defmt-rtt = "0.4.1"
+linker-sections = { path = "linker-sections", version = "0.1.0" }
+panic-probe = "0.3.2"
+static_cell = "2.1.0"
+with_builtin_macros = "0.1.0"

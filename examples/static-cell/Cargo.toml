@@ -1,0 +1,16 @@
+[package]
+name = "static-cell"
+version = "0.1.0"
+edition.workspace = true
+description = "Simple example"
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+cortex-m.workspace = true
+cortex-m-rt.workspace = true
+defmt.workspace = true
+defmt-rtt.workspace = true
+linker-sections.workspace = true
+panic-probe.workspace = true
+static_cell.workspace = true

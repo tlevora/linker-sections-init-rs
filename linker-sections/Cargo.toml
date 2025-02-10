@@ -1,0 +1,19 @@
+[package]
+name = "linker-sections"
+version = "0.1.0"
+description = "Linker section memory initialization"
+repository.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+categories.workspace = true
+keywords.workspace = true
+authors.workspace = true
+
+[dependencies]
+cortex-m-rt.workspace = true
+defmt.workspace = true
+with_builtin_macros.workspace = true
+
+[features]
+asserts = []
