@@ -12,7 +12,6 @@ authors.workspace = true
 
 [dependencies]
 cortex-m-rt.workspace = true
-defmt.workspace = true
 with_builtin_macros.workspace = true
 
 [features]
