@@ -131,7 +131,6 @@ name = "linker-sections"
 version = "0.1.0"
 dependencies = [
  "cortex-m-rt",
- "defmt",
  "with_builtin_macros",
 ]
 
