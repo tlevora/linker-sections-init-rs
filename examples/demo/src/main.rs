@@ -23,7 +23,10 @@ static mut STATIC_ARRAY_A: u32 = INITIAL_VALUE;
 #[link_section = ".custom_data_b"]
 static mut STATIC_ARRAY_B: [u32; 256] = [INITIAL_VALUE; 256];
 
-init_sections!(custom_data_a, custom_data_b);
+#[cortex_m_rt::pre_init]
+unsafe fn pre_init() {
+    init_sections!(custom_data_a, custom_data_b);
+}
 
 #[cortex_m_rt::entry]
 fn main() -> ! {

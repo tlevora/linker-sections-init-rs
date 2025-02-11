@@ -1,5 +1,6 @@
 //! Couple of macros for linker section memory initialization. This crate is
-//! designed for use with cortex-m cores.
+//! designed for use on platforms with 32-bit aligned memory and 32-bit memory
+//! access, but was tested with cortex-m cores only.
 //!
 //! This crate provides section memory initialization macro in a couple of
 //! following variants.
@@ -55,7 +56,8 @@
 //! } INSERT BEFORE .uninit;
 //! ```
 //!
-//! In rust code it is needed to call macro [`init_sections`] with proper argument.
+//! In rust code it is needed to call macro [`init_sections`] with proper argument. the
+//! [`init_sections`] macro shall be usually called before or at the beginning of `main` function.
 //!
 //! ```
 //! #![no_std]
@@ -68,8 +70,10 @@
 //!
 //! #[link_section = ".custom_data"]
 //! static mut STATIC_VARIABLE: u32 = INITIAL_VALUE;
-//!
-//! init_sections!(custom_data);
+//! #[cortex_m_rt::pre_init]
+//! unsafe fn pre_init() {
+//!     init_sections!(custom_data);
+//! }
 //!
 //! #[cortex_m_rt::entry]
 //! fn main() -> ! {
@@ -90,8 +94,6 @@
 //!
 //! # Limitations
 //!
-//! - Those exported macros register pre-init method of using `#[cortex-m-rt::pre_init]` macro. It
-//!   means that macro cannot be used by user application.
 //! - Each section's name shall be a valid rust function name. but it does not have to be snake_case.
 //! - Only one macro can be called and it can be called at most once.
 
@@ -213,11 +215,12 @@ macro_rules! init_sections {
 /// ```
 macro_rules! init_sections_with_prefixes {
     ($($section_name:ident($beg:ident,$end:ident,$src:ident)$(,)?)+) => {
-        #[cortex_m_rt::pre_init]
-        unsafe fn __init_sections() {$(
+        fn __init_sections() {$(
             $crate::section_init_with_prefixes!($section_name($beg, $end, $src));
             $section_name();
         )*}
+
+        __init_sections();
     };
 }
 
@@ -275,7 +278,7 @@ pub unsafe fn section_init(dst: *mut u32, end: *const u32, src: *const u32) {
         // section start shall be less or equal to section end
         assert!(dst as *const u32 <= end);
 
-        // on cortex-m src and dst must be 4-byte aligned
+        // src and dst must be 4-byte aligned because of 4-byte oriented memcopy
         assert!(src as usize % 4 == 0);
         assert!(dst as usize % 4 == 0);
 

@@ -130,7 +130,6 @@ dependencies = [
 name = "linker-sections"
 version = "0.1.0"
 dependencies = [
- "cortex-m-rt",
  "with_builtin_macros",
 ]
 

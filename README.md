@@ -1,4 +1,4 @@
-This crate provides couple of macros for linker section memory initialization on cortex-m devices.
+This crate provides couple of macros for linker section memory initialization on bare-metal devices.
 
 # Example
 
@@ -29,7 +29,8 @@ SECTIONS
 } INSERT BEFORE .uninit;
 ```
 
-In rust code it is needed to call macro `init_sections` with proper argument.
+In rust code it is needed to call macro `init_sections` with proper argument. The `init_sections`
+macro shall be usually called before or at the beginning of `main` function.
 
 ```rust
 #![no_std]
@@ -43,7 +44,10 @@ const INITIAL_VALUE: u32 = 0xDEAD_BEEF;
 #[link_section = ".custom_data"]
 static mut STATIC_VARIABLE: u32 = INITIAL_VALUE;
 
-init_sections!(custom_data);
+#[cortex_m_rt::pre_init]
+unsafe fn pre_init() {
+    init_sections!(custom_data);
+}
 
 #[cortex_m_rt::entry]
 fn main() -> ! {

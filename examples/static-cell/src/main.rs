@@ -24,7 +24,10 @@ static STATIC_ARRAY_A: StaticCell<u32> = StaticCell::new();
 #[link_section = ".custom_data"]
 static STATIC_ARRAY_B: StaticCell<[u32; 256]> = StaticCell::new();
 
-init_sections!(custom_data);
+#[cortex_m_rt::pre_init]
+unsafe fn pre_init() {
+    init_sections!(custom_data);
+}
 
 #[cortex_m_rt::entry]
 fn main() -> ! {

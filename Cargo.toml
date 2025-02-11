@@ -11,7 +11,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/tlevora/linker-sections-init-rs"
 readme = "README.md"
 categories = ["embedded", "no-std", "no-std::no-alloc"]
-keywords = ["linker", "section", "memory", "init", "cortex-m"]
+keywords = ["linker", "section", "memory", "init"]
 authors = ["Tomas Levora <levora.tomas@gmail.com>"]
 
 [workspace.dependencies]
