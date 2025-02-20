@@ -13,7 +13,7 @@ const INITIAL_VALUE: u32 = 0xDEAD_BEEF;
 // - Using static mut just to force compiler not to optimize it out in
 //   this simple example
 // - linker section gets initialized because of using `linker_sections`
-#[link_section = ".custom_data"]
+#[unsafe(link_section = ".custom_data")]
 static STATIC_ARRAY_A: StaticCell<u32> = StaticCell::new();
 
 #[allow(unsafe_code)]
@@ -21,7 +21,7 @@ static STATIC_ARRAY_A: StaticCell<u32> = StaticCell::new();
 // - Using static mut just to force compiler not to optimize it out in
 //   this simple example
 // - linker section gets initialized because of using `linker_sections`
-#[link_section = ".custom_data"]
+#[unsafe(link_section = ".custom_data")]
 static STATIC_ARRAY_B: StaticCell<[u32; 256]> = StaticCell::new();
 
 #[cortex_m_rt::pre_init]
