@@ -68,7 +68,7 @@
 //!
 //! const INITIAL_VALUE: u32 = 0xDEAD_BEEF;
 //!
-//! #[link_section = ".custom_data"]
+//! #[unsafe(link_section = ".custom_data")]
 //! static mut STATIC_VARIABLE: u32 = INITIAL_VALUE;
 //! #[cortex_m_rt::pre_init]
 //! unsafe fn pre_init() {
@@ -253,7 +253,7 @@ macro_rules! section_init_with_prefixes {
 #[doc(hidden)]
 macro_rules! pointer {
     ($name:ident) => {
-        extern "C" {
+        unsafe extern "C" {
             static $name: u32;
         }
     };
@@ -263,7 +263,7 @@ macro_rules! pointer {
 #[doc(hidden)]
 macro_rules! pointer_mut {
     ($name:ident) => {
-        extern "C" {
+        unsafe extern "C" {
             static mut $name: u32;
         }
     };
@@ -286,7 +286,7 @@ pub unsafe fn section_init(dst: *mut u32, end: *const u32, src: *const u32) {
         assert!(end as usize % 4 == 0);
     }
 
-    let len = end.offset_from(dst) as usize;
+    let len = unsafe { end.offset_from(dst) } as usize;
 
     #[cfg(feature = "asserts")]
     {
@@ -297,5 +297,5 @@ pub unsafe fn section_init(dst: *mut u32, end: *const u32, src: *const u32) {
         assert!(src > dst + len || src + len < dst);
     }
 
-    core::ptr::copy_nonoverlapping(src, dst, len);
+    unsafe { core::ptr::copy_nonoverlapping(src, dst, len) };
 }
