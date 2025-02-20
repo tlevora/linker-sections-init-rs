@@ -41,7 +41,7 @@ use {defmt_rtt as _, panic_probe as _};
 
 const INITIAL_VALUE: u32 = 0xDEAD_BEEF;
 
-#[link_section = ".custom_data"]
+#[unsafe(link_section = ".custom_data")]
 static mut STATIC_VARIABLE: u32 = INITIAL_VALUE;
 
 #[cortex_m_rt::pre_init]
