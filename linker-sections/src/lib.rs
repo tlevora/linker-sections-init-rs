@@ -94,7 +94,7 @@
 //!
 //! # Limitations
 //!
-//! - Each section's name shall be a valid rust function name. but it does not have to be snake_case.
+//! - Each section's name shall be a valid rust function name, but it does not have to be snake_case.
 //! - Only one macro can be called and it can be called at most once.
 
 #![no_std]

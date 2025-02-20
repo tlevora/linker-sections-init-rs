@@ -106,7 +106,7 @@ dependencies = [
 
 [[package]]
 name = "demo"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",
@@ -128,7 +128,7 @@ dependencies = [
 
 [[package]]
 name = "linker-sections"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "with_builtin_macros",
 ]
@@ -229,7 +229,7 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "static-cell"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",
